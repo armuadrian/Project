@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-public class WorkflowClient extends Actions{
+public class WorkflowClient extends SeleniumActions{
 	
 	private String wfcLink = "http://cfiwn02-app2.nz.alcatel-lucent.com:44380/wfc_ui";
 	private String logInButton = "//*[@id=\"login-table-background\"]/table[2]/tbody/tr/td/button[1]";
@@ -39,8 +39,8 @@ public class WorkflowClient extends Actions{
 		
 		//openWeb(driverPath);
 
-		openWebPage(wfcLink);
-		login(enterUsername, enterPassword);
+		openpage(wfcLink);
+		//login(enterUsername, enterPassword);
 		clickButton(logInButton);
 		clickButton(workQueueXpath);
 		clickButton(clearButton);

@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-public class InstantLink  extends Actions {
+public class InstantLink  extends SeleniumActions {
 	
 	private String ilLink = "http://cfiwn02-app2.nz.alcatel-lucent.com:44080/sas5/";
 	private String omIlLink = "http://cfiwn02-app2.nz.alcatel-lucent.com:44080/sas5/navigation_servlet/showOM";
@@ -38,10 +38,10 @@ public class InstantLink  extends Actions {
 
 		String orderNo = props.getProperty("orderNo");
 
-		openWebPage(ilLink);
-		login(enterUsername, enterPassword);
+		openpage(ilLink);
+		//login(enterUsername, enterPassword);
 		clickButton(logInButton);
-		openWebPage(omIlLink);
+		openpage(omIlLink);
 		clickButton(clearButton);
 		sendKey(orderNoXpath, orderNo);
 		clickButton(searchOrderButton);
@@ -53,8 +53,8 @@ public class InstantLink  extends Actions {
 		
 		String orderNo = props.getProperty("orderNo");
 		
-		openWebPage(ilLink);
-		openWebPage(omIlLink);
+		openpage(ilLink);
+		openpage(omIlLink);
 		clickButton(clearButton);
 		sendKey(orderNoXpath, orderNo);
 		clickButton(searchOrderButton);
