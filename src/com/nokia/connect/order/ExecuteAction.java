@@ -26,7 +26,7 @@ public class ExecuteAction {
 	public void addDataFromXml() {
 		try {
 			// create JAXBContext
-			String context = "com.nokia.test.xsd";
+			String context = "com.nokia.xml";
 
 			// Create an instance of JAXB Context
 			JAXBContext jContext = JAXBContext.newInstance(context);
@@ -43,7 +43,7 @@ public class ExecuteAction {
 		}
 	}
 
-	public void execute() throws FileNotFoundException, IOException {
+	public void execute() throws FileNotFoundException, IOException, InterruptedException {
 
 		for (Action c: action) {
 			List<String> parametrii = c.getParam();
@@ -57,6 +57,42 @@ public class ExecuteAction {
 				break;
 			case "clickbutton":
 				selAc.clickButton(parametrii.get(0));
+				break;
+			case "sendkey":
+				selAc.sendKey(parametrii.get(0), parametrii.get(1));
+				break;
+			case "waitforactivity":
+				selAc.waitForActivities(parametrii.get(0), parametrii.get(1), parametrii.get(2));
+				break;
+			case "waitforcompletedorderstatus":
+				selAc.waitForCompletedOrderStatus(parametrii.get(0), parametrii.get(1), parametrii.get(2), parametrii.get(3));
+				break;
+			case "exitOrder":
+				selAc.exitOrder(parametrii.get(0));
+				break;
+			case "enterOrderIL":
+				selAc.enterIlOrder();
+				break;
+			case "waitforstatusIL":
+				selAc.waitForStatusIl(parametrii.get(0), parametrii.get(1), parametrii.get(2));
+				break;
+			case "sendXML":
+				Xml.sendSOAPXml(parametrii.get(0), true);
+				break;
+			case "waitforstatusWFC":
+				selAc.waitForStatusWfc(parametrii.get(0), parametrii.get(1), parametrii.get(2));
+				break;
+			case "enterWFCorder":
+				selAc.enterWfcOrder();
+				break;
+			case "manualactivation":
+				selAc.doManualActivationNGBCircuitFallout();
+				break;
+			case "waitforalert":
+				selAc.waitForAlert();
+				break;
+			case "sendcontinue":
+				selAc.sendContinueManualActivation();
 				break;
 			default:
 				System.out.println("tag name doesn't exist!");
