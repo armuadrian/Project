@@ -18,13 +18,24 @@ public class InstantLink  extends SeleniumActions {
 	private String table1IlXpath = "//*[@id=\"content\"]/form/table[2]";
 	private String table2IlXpath = "//*[@id=\"OrdersForm\"]/table";
 	private String activity = "3/3";
-	private String refreshButton = "//*[@id=\"content\"]/form/div[2]/div/button[3]";
-	private String orderStatus = "Wait for ICMS Service Order Closure";
-	private String xmlFile2Send = "C:\\Users\\abexa\\Documents\\Chorus\\NotifyOrderComplete.xml";
+//	private String refreshButton = "//*[@id=\"content\"]/form/div[2]/div/button[3]";
+	private String refreshButton = "//*[@id=\"OrdersForm\"]/div/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button[1]";
+	private String orderStatus = "Wait for Orchestration Signal";
+	private String xmlFile2Send = "C:\\Users\\opis\\Documents\\CHORUS\\XML\\NotifyOrderComplete.xml";
 	private Properties props;
-	private String goBackToWorkItemsButton = "//*[@id=\"content-div\"]/div[1]/table/tbody/tr/td/a[2]";
+//	private String goBackToWorkItemsButton = "//*[@id=\"content-div\"]/div[1]/table/tbody/tr/td/a[2]";
+	private String goBackToWorkItemsButton = "http://cfiwn02-app2.nz.alcatel-lucent.com:44080/sas5/order_management_servlet/showOrders?same_search=true&navigation_text=Order%20Management&navigation_uri=/navigation_servlet/showOM&navigation_text=Orders&navigation_uri=/order_management_servlet/showOrders?same_search=true";
 	private String completedStatus = "Completed";
-	private String extServiceId = "112233";
+	private String user = "Administrator";
+	private String pass = "guiadmin";
+	private String SOAPUrl = "http://cfiwn02-app2.nz.alcatel-lucent.com:44006/ilws/InstantLinkSOA?wsdl";
+	
+	
+	
+	private String extServiceId = "7575333375";
+	
+	
+	
 	
 	public InstantLink() throws FileNotFoundException, IOException {
 		super();
@@ -34,36 +45,59 @@ public class InstantLink  extends SeleniumActions {
 	}
 
 
-	public void ilFirstAction() throws InterruptedException, FileNotFoundException, IOException{ 
+	public void ilFirstAction(WorkflowClient wfc) throws InterruptedException, FileNotFoundException, IOException{ 
 
 		String orderNo = props.getProperty("orderNo");
 
 		openpage(ilLink);
-		//login(enterUsername, enterPassword);
+		login(enterUsername, user, enterPassword, pass);
 		clickButton(logInButton);
 		openpage(omIlLink);
 		clickButton(clearButton);
 		sendKey(orderNoXpath, orderNo);
 		clickButton(searchOrderButton);
-		waitForActivities(activity, table2IlXpath, searchOrderButton);
+//		waitForActivities(activity, table2IlXpath, searchOrderButton); // delete 
+		enterIlCSOMOrder(extServiceId, table2IlXpath, searchOrderButton);
+		waitForActivateNGBCircuitStatusIl(wfc, table1IlXpath);
 		
 	}
 	
 	public void ilSecondAction() throws InterruptedException, IOException{
 		
 		String orderNo = props.getProperty("orderNo");
+		Xml xml = new Xml();
 		
 		openpage(ilLink);
+//		login(enterUsername, user, enterPassword, pass);// comment it
+//		clickButton(logInButton);// comment it 
 		openpage(omIlLink);
 		clickButton(clearButton);
 		sendKey(orderNoXpath, orderNo);
 		clickButton(searchOrderButton);
-//		enterIlOrder();
-//		waitForStatusIl(orderStatus, table1IlXpath, refreshButton);
-//		Xml.sendXml(xmlFile2Send, true);
+//		waitForActivities(activity, table2IlXpath, searchOrderButton);// comment it
+		enterIlOrder();
+		waitForStatusIl(orderStatus, table1IlXpath, refreshButton);
+		xml.sendSOAPXml(SOAPUrl ,xmlFile2Send, true);
 //		exitOrder(goBackToWorkItemsButton);
-		waitForCompletedOrderStatus(completedStatus, extServiceId, table2IlXpath, refreshButton);
+		openpage(goBackToWorkItemsButton);
+		waitForCompletedOrderStatus(completedStatus, extServiceId, table2IlXpath);
 		
+	}
+
+
+	public void testActivate(WorkflowClient wfc) throws FileNotFoundException, IOException, InterruptedException {
+		
+		String orderNo = props.getProperty("orderNo");
+		
+		openpage(ilLink);
+		login(enterUsername, user, enterPassword, pass);
+		clickButton(logInButton);
+		openpage(omIlLink);
+		clickButton(clearButton);
+		sendKey(orderNoXpath, orderNo);
+		clickButton(searchOrderButton);
+		enterIlCSOMOrder(extServiceId, table2IlXpath, searchOrderButton);
+		waitForActivateNGBCircuitStatusIl(wfc, table1IlXpath);
 	}
 
 

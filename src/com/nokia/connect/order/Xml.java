@@ -15,9 +15,9 @@ import java.net.URLConnection;
 
 public class Xml {
 
-	public static void sendSOAPXml(String xmlFile2Send, boolean verifyProxy) throws IOException {
+	public void sendSOAPXml(String SOAPUrl, String xmlFile2Send, boolean verifyProxy) throws IOException {
 
-		String SOAPUrl = "http://cfiwn02-app2.nz.alcatel-lucent.com:44006/ilws/InstantLinkSOA?wsdl";
+//		String SOAPUrl = "http://cfiwn02-app2.nz.alcatel-lucent.com:44006/ilws/InstantLinkSOA?wsdl";
 		HttpURLConnection httpConn = null;
 
 		if (verifyProxy == true) {

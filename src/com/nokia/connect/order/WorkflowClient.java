@@ -15,11 +15,13 @@ public class WorkflowClient extends SeleniumActions{
 	private String clearButton = "//*[@id=\"mainForm:workspace_working_area_view:_idJsp59\"]";
 	private String productIdXpath = "//*[@id=\"mainForm:workspace_working_area_view:additionalSearchFields_14\"]";
 	private String searchButton = "//*[@id=\"mainForm:workspace_working_area_view:_idJsp58\"]";
-	private String wfcFirstNotifyStatusOrder = "Notify Activate NGB Circuit Fallout";
+	private String wfcFirstNotifyStatusOrder = "Unable to Activate NGB Circuit";
 	private String wfcSecondNotifyStatusOrder = "Wait For Manual Activation";	
 	private String tableWfcXpath = "//*[@id=\"mainForm:workspace_working_area_view:actionTicketListingTable\"]";
 	private String goBackToWorkItemsButton = "//*[@id=\"content-div\"]/div[1]/table/tbody/tr/td/a[2]";
 	private Properties props;
+	private String user = "Administrator";
+	private String pass = "guiadmin";
 	
 	public WorkflowClient() throws FileNotFoundException, IOException {
 		super();
@@ -40,7 +42,7 @@ public class WorkflowClient extends SeleniumActions{
 		//openWeb(driverPath);
 
 		openpage(wfcLink);
-		//login(enterUsername, enterPassword);
+		login(enterUsername,user, enterPassword,pass);
 		clickButton(logInButton);
 		clickButton(workQueueXpath);
 		clickButton(clearButton);
@@ -49,15 +51,12 @@ public class WorkflowClient extends SeleniumActions{
 		waitForStatusWfc(wfcFirstNotifyStatusOrder, tableWfcXpath, searchButton);
 		enterWfcOrder();
 		doManualActivationNGBCircuitFallout();
-		waitForAlert();
-		exitOrder(goBackToWorkItemsButton);
 		clickButton(clearButton);
 		sendKey(productIdXpath, productId);
 		clickButton(searchButton);
 		waitForStatusWfc(wfcSecondNotifyStatusOrder, tableWfcXpath, searchButton);
 		enterWfcOrder();
 		sendContinueManualActivation();
-		waitForAlert();
 		
 	}
 }

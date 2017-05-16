@@ -6,7 +6,7 @@
 //
 
 
-package com.nokia.xml;
+package com.nokia.xml.generated.classes;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
