@@ -23,11 +23,11 @@ public class SeleniumActions {
 		props.load(new FileInputStream("files/config.properties"));
 	}
 
-	public WebDriver driver;
+	public static WebDriver driver = null;
 
-	public LinkedList<OrderResponse> raspuns = new LinkedList<>();
-	public LinkedList<SearchOrder> dateRaspuns = new LinkedList<>();
-	public LinkedList<WorkflowObject> workflow = new LinkedList<>();
+	public static LinkedList<OrderResponse> raspuns = new LinkedList<>();
+	public static LinkedList<SearchOrder> dateRaspuns = new LinkedList<>();
+	public static LinkedList<WorkflowObject> workflow = new LinkedList<>();
 	private int primul;
 
 	private void openWeb() throws FileNotFoundException, IOException {
@@ -301,15 +301,17 @@ public class SeleniumActions {
 		}
 	}
 
-	public void waitForActivateNGBCircuitStatusIl(WorkflowClient wfc, String table1IlXpath)
-			throws InterruptedException, FileNotFoundException, IOException {
+	public void waitForActivateNGBCircuitStatusIl(WorkflowClient wfc, String table1IlXpath, String wfcLink,
+			String productId, String searchButton, String wfcFirstNotifyStatus, String wfcSecondNotifyStatus,
+			String tableFromWfc) throws InterruptedException, FileNotFoundException, IOException {
 
 		while (true) {
 			takeListFromOrderIL(table1IlXpath);
 			for (OrderResponse rsp : raspuns) {
 				if (rsp.getName().equals("Activate NGB Circuit")) {
 					if (rsp.getStatus().equals("Failed")) {
-						wfc.wfcActions();
+						wfc.wfcActions(wfcLink, productId, searchButton, tableFromWfc, wfcFirstNotifyStatus,
+								wfcSecondNotifyStatus);
 						return;
 					} else if (rsp.getStatus().equals("Completed")) {
 						return;
@@ -321,7 +323,8 @@ public class SeleniumActions {
 		}
 	}
 
-	public void waitForCompletedOrderStatus(String status, String extServiceId, String table2IlXpath) throws InterruptedException {
+	public void waitForCompletedOrderStatus(String status, String extServiceId, String table2IlXpath)
+			throws InterruptedException {
 
 		while (true) {
 			getStatusOrderInstantLink(table2IlXpath);

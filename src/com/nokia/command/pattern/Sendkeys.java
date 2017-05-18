@@ -19,12 +19,13 @@ public class Sendkeys extends GenericAction{
 	}
 	
 	public void execute(){
+		extractAndValidate();
 		sa.sendKey(params.get(0), params.get(1));
 	}
 
 	public void extractAndValidate(){
 		if(params.size()!=2){
-			//TODO
+			//TODO logs
 		}
 	}
 }

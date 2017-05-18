@@ -8,17 +8,17 @@ import com.nokia.connect.order.SeleniumActions;
 
 public class Clickbutton extends GenericAction {
 
-	private SeleniumActions s;
+	private SeleniumActions sa;
 	private List<String> params;
 	
 	public Clickbutton(List<String> params) throws FileNotFoundException, IOException {
-		this.s = new SeleniumActions();
+		this.sa = new SeleniumActions();
 		this.params = params;
 	}
 	
 	public void execute(){
 		extractAndValidate();
-		s.clickButton(params.get(0));
+		sa.clickButton(params.get(0));
 	}
 
 	@Override

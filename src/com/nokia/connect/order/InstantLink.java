@@ -58,7 +58,7 @@ public class InstantLink  extends SeleniumActions {
 		clickButton(searchOrderButton);
 //		waitForActivities(activity, table2IlXpath, searchOrderButton); // delete 
 		enterIlCSOMOrder(extServiceId, table2IlXpath, searchOrderButton);
-		waitForActivateNGBCircuitStatusIl(wfc, table1IlXpath);
+	//	waitForActivateNGBCircuitStatusIl(wfc, table1IlXpath);
 		
 	}
 	
@@ -97,7 +97,7 @@ public class InstantLink  extends SeleniumActions {
 		sendKey(orderNoXpath, orderNo);
 		clickButton(searchOrderButton);
 		enterIlCSOMOrder(extServiceId, table2IlXpath, searchOrderButton);
-		waitForActivateNGBCircuitStatusIl(wfc, table1IlXpath);
+	//	waitForActivateNGBCircuitStatusIl(wfc, table1IlXpath);
 	}
 
 

@@ -9,21 +9,21 @@ import com.nokia.connect.order.Xml;
 
 public class SendXml extends GenericAction{
 
-	private Xml sa;
+	private Xml xml;
 /*	private String soapUrl;
 	private String xmlFile2Send;
 	private boolean verifyProxy = false;*/
 	private List<String> params;
 	
 	public SendXml(List<String> params) {
-		this.sa = new Xml();
+		this.xml = new Xml();
 		this.params=params;
 	}
 	
 	@Override
 	public void execute() throws FileNotFoundException, IOException {
 		extractAndValidate();
-		sa.sendSOAPXml(params.get(0), params.get(1), true);
+		xml.sendSOAPXml(params.get(0), params.get(1), true);
 	}
 	
 	public void extractAndValidate(){

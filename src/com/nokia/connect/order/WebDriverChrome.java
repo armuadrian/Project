@@ -12,6 +12,7 @@ public class WebDriverChrome {
 	private static ChromeDriver webDriver;
 	
 	public static ChromeDriver getWebDriver() throws FileNotFoundException, IOException {
+		
 		Properties props = new Properties();
 		props.load(new FileInputStream("files/config.properties"));
 		if (webDriver == null ){
