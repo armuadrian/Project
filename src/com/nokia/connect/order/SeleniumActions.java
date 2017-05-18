@@ -199,7 +199,7 @@ public class SeleniumActions {
 		WebElement fromOrderTable = findElement(tableFromOrder);
 		List<WebElement> rows_table = fromOrderTable.findElements(By.tagName("tr"));
 		int rows_count = rows_table.size();
-		System.out.println("rows-count: " + rows_count);
+
 		for (int row = 0; row < rows_count; row++) {
 			OrderResponse or = new OrderResponse();
 			List<WebElement> Columns_row = rows_table.get(row).findElements(By.tagName("td"));
@@ -277,7 +277,7 @@ public class SeleniumActions {
 					return;
 				}
 			}
-			dateRaspuns.clear();
+			raspuns.clear();
 			clickButton(refreshButton);
 		}
 	}
