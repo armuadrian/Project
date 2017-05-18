@@ -4,24 +4,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-import com.nokia.connect.order.SeleniumActions;
-
 public class WaitForStatusIL extends GenericAction{
 	
-	private SeleniumActions sa;
-	/*private String statusOrder;
-	private String orderTable;
-	private String refreshButton;*/
 	private List<String> params;
 	
 	public WaitForStatusIL(List<String> params) throws FileNotFoundException, IOException {
-		this.sa = new SeleniumActions();
+		super();
 		this.params=params;
 	}
 	@Override
 	public void execute() throws FileNotFoundException, IOException, InterruptedException {
 		extractAndValidate();
-		sa.waitForStatusIl(params.get(0), params.get(1), params.get(2));
+		super.sa.waitForStatusIl(params.get(0), params.get(1), params.get(2));
 	}
 	
 	public void extractAndValidate(){

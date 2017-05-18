@@ -15,7 +15,7 @@ public class SendXml extends GenericAction{
 	private boolean verifyProxy = false;*/
 	private List<String> params;
 	
-	public SendXml(List<String> params) {
+	public SendXml(List<String> params) throws FileNotFoundException, IOException {
 		this.xml = new Xml();
 		this.params=params;
 	}

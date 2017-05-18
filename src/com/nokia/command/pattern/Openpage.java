@@ -4,21 +4,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-import com.nokia.connect.order.SeleniumActions;
-
 public class Openpage extends GenericAction{
 
-	private SeleniumActions seleniumActions;
 	private List<String> params;
 	
 	public Openpage(List<String> params) throws FileNotFoundException, IOException{
-		this.seleniumActions=new SeleniumActions();
+		super();
 		this.params= params;
 	}
 	
 	public void execute() throws FileNotFoundException, IOException{
 		extractAndValidate();
-		seleniumActions.openpage(params.get(0));
+		super.sa.openpage(params.get(0));
 	}
 	
 	public void extractAndValidate(){

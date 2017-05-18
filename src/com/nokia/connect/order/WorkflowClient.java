@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class WorkflowClient extends SeleniumActions {
-
+	
 	private String wfcLink = "http://cfiwn02-app2.nz.alcatel-lucent.com:44380/wfc_ui";
 	private String logInButton = "//*[@id=\"login-table-background\"]/table[2]/tbody/tr/td/button[1]";
 	private String enterUsername = "j_username";
@@ -15,9 +15,9 @@ public class WorkflowClient extends SeleniumActions {
 	private String clearButton = "//*[@id=\"mainForm:workspace_working_area_view:_idJsp59\"]";
 	private String productIdXpath = "//*[@id=\"mainForm:workspace_working_area_view:additionalSearchFields_14\"]";
 	private String searchButton = "//*[@id=\"mainForm:workspace_working_area_view:_idJsp58\"]";
-	private String wfcFirstNotifyStatusOrder = "Unable to Activate NGB Circuit";
-	private String wfcSecondNotifyStatusOrder = "Wait For Manual Activation";
-	private String tableWfcXpath = "//*[@id=\"mainForm:workspace_working_area_view:actionTicketListingTable\"]";
+//	private String wfcFirstNotifyStatusOrder = "Unable to Activate NGB Circuit";
+//	private String wfcSecondNotifyStatusOrder = "Wait For Manual Activation";
+//	private String tableWfcXpath = "//*[@id=\"mainForm:workspace_working_area_view:actionTicketListingTable\"]";
 	private Properties props;
 	private String user = "Administrator";
 	private String pass = "guiadmin";
@@ -29,30 +29,30 @@ public class WorkflowClient extends SeleniumActions {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void wfcActions(String wfcLink2, String productId2, String searchButton2, String tableFromWfc,
+	public void wfcActions(String productId2, String tableFromWfc,
 			String wfcFirstNotifyStatus, String wfcSecondNotifyStatus)
 			throws InterruptedException, FileNotFoundException, IOException {
 
-		String productId = props.getProperty("productId");
+//		String productId = props.getProperty("productId");
 
 		// String driverPath = props.getProperty("driverPath");
 
 		// openWeb(driverPath);
 
-		openpage(wfcLink2);
+		openpage(wfcLink);
 		login(enterUsername, user, enterPassword, pass);
 		clickButton(logInButton);
 		clickButton(workQueueXpath);
 		clickButton(clearButton);
 		sendKey(productIdXpath, productId2);
-		clickButton(searchButton2);
-		waitForStatusWfc(wfcFirstNotifyStatus, tableFromWfc, searchButton2);
+		clickButton(searchButton);
+		waitForStatusWfc(wfcFirstNotifyStatus, tableFromWfc, searchButton);
 		enterWfcOrder();
 		doManualActivationNGBCircuitFallout();
 		clickButton(clearButton);
 		sendKey(productIdXpath, productId2);
-		clickButton(searchButton2);
-		waitForStatusWfc(wfcSecondNotifyStatus, tableFromWfc, searchButton2);
+		clickButton(searchButton);
+		waitForStatusWfc(wfcSecondNotifyStatus, tableFromWfc, searchButton);
 		enterWfcOrder();
 		sendContinueManualActivation();
 
