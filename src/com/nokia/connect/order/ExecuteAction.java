@@ -1,32 +1,31 @@
 package com.nokia.connect.order;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
-import com.nokia.xml.Config;
-import com.nokia.xml.Config.Actions;
-import com.nokia.xml.Config.Actions.Action;
+import com.nokia.xml.generated.classes.Config;
+import com.nokia.xml.generated.classes.Config.Actions;
+import com.nokia.xml.generated.classes.Config.Actions.Action;
 
 public class ExecuteAction {
 
 	private Config config;
-	private SeleniumActions selAc;
 	private Config.Actions actions;
 	private List<Actions.Action> action;
 
-	public ExecuteAction() throws FileNotFoundException, IOException {
-		selAc = new SeleniumActions();
-	}
+	public ExecuteAction(){}
 
 	public void addDataFromXml() {
 		try {
 			// create JAXBContext
-			String context = "com.nokia.test.xsd";
+			String context = "com.nokia.xml.generated.classes";
 
 			// Create an instance of JAXB Context
 			JAXBContext jContext = JAXBContext.newInstance(context);
@@ -43,25 +42,20 @@ public class ExecuteAction {
 		}
 	}
 
-	public void execute() throws FileNotFoundException, IOException {
+	public List<Object> getInstances() throws NoSuchMethodException, SecurityException, InstantiationException,
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException {
 
-		for (Action c: action) {
-			List<String> parametrii = c.getParam();
-			
-			switch (c.getName()) {
-			case "openpage":
-				selAc.openpage(parametrii.get(0));
-				break;
-			case "login":
-				selAc.login(parametrii.get(0), parametrii.get(1), parametrii.get(2), parametrii.get(3));
-				break;
-			case "clickbutton":
-				selAc.clickButton(parametrii.get(0));
-				break;
-			default:
-				System.out.println("tag name doesn't exist!");
-				break;
-			}
+		List<Object> callAction = new LinkedList<>();
+		Iterator<Action> it = action.iterator();
+
+		while (it.hasNext()) {
+			Action action = it.next();
+			Class<?> classDefinition = Class.forName("com.nokia.command.pattern."+action.getName());
+			Constructor<?> cons = classDefinition.getConstructor(List.class);
+			Object date = cons.newInstance(action.getParam());
+			callAction.add(date);
 		}
+		return callAction;
 	}
+
 }
