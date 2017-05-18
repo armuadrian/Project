@@ -106,9 +106,6 @@ public class SeleniumActions {
 			}
 		} else if (wfcFrames.size() != 0) {
 			for (WebElement iframe : wfcFrames) {
-				// List<WebElement> frame =
-				// driver.findElements(By.tagName("frame"));
-				// for (WebElement frames : frame) {
 				driver.switchTo().frame(iframe);
 				try {
 					el = driver.findElement(By.id(findElement));
@@ -151,7 +148,6 @@ public class SeleniumActions {
 					System.out.println(e);
 				}
 				driver.switchTo().defaultContent();
-				// }
 			}
 		} else {
 			try {
@@ -198,10 +194,10 @@ public class SeleniumActions {
 		return null;
 	}
 
-	public void takeListFromOrderIL(String table1IlXpath) {
+	public void takeListFromOrderIL(String tableFromOrder) {
 
-		WebElement myTable = driver.findElement(By.xpath("//*[@id=\"content\"]/form/table[2]"));
-		List<WebElement> rows_table = myTable.findElements(By.tagName("tr"));
+		WebElement fromOrderTable = findElement(tableFromOrder);
+		List<WebElement> rows_table = fromOrderTable.findElements(By.tagName("tr"));
 		int rows_count = rows_table.size();
 		System.out.println("rows-count: " + rows_count);
 		for (int row = 0; row < rows_count; row++) {
@@ -209,8 +205,7 @@ public class SeleniumActions {
 			List<WebElement> Columns_row = rows_table.get(row).findElements(By.tagName("td"));
 			// To calculate no of columns(cells) In that specific row.
 			int columns_count = Columns_row.size();
-			// System.out.println("Number of cells In Row "+row+" are
-			// "+columns_count);
+
 			if (columns_count == 0 || Columns_row.get(0).getText().isEmpty()) {
 				continue;
 			}
@@ -220,9 +215,6 @@ public class SeleniumActions {
 				// To retrieve text from that specific cell.
 				String celtext = Columns_row.get(column).getText();
 				or.add(column, celtext);
-				System.out.println(or.toString());
-				// System.out.println("Cell Value Of row number "+row+" and
-				// column number "+column+" Is "+celtext);
 			}
 			if (columns_count != 0) {
 				raspuns.add(or);
@@ -237,7 +229,6 @@ public class SeleniumActions {
 		List<WebElement> rand = tabel1.findElements(By.tagName("tr"));
 
 		int dimensiuneRand = rand.size();
-		// System.out.println("randuri: " + dimensiuneRand);
 
 		for (int i = 0; i < dimensiuneRand; i++) {
 
@@ -252,8 +243,6 @@ public class SeleniumActions {
 			for (int j = 0; j < dimensiuneColoana; j++) {
 				String celltext = coloana.get(j).getText();
 				wfc.add(i, j, celltext);
-				// System.out.println("Cell Value Of row number " + i + " and
-				// column number " + j + " Is " + celltext);
 			}
 			workflow.add(wfc);
 		}
@@ -271,47 +260,38 @@ public class SeleniumActions {
 		while (true) {
 			getOrderIdFromWorkflow(tableWfcXpath);
 			for (WorkflowObject wla : workflow) {
-				// try {
 				if (wla.getStatus().contains(status)) {
 					return;
 				}
-				// } catch (Exception e) {
-				// Thread.sleep(5000);
-				// }
 			}
 			clearAndRetry(searchButton);
 		}
 	}
 
-	public void waitForStatusIl(String status, String table1IlXpath, String refreshButton) throws InterruptedException {
+	public void waitForStatusIl(String status, String tableFromOrder, String refreshButton) throws InterruptedException {
 
 		while (true) {
-			takeListFromOrderIL(table1IlXpath);
+			takeListFromOrderIL(tableFromOrder);
 			for (OrderResponse rsp : raspuns) {
-				// try {
 				if (rsp.getName().endsWith(status)) {
 					return;
 				}
-				// } catch (Exception e) {
-				// Thread.sleep(5000);
-				// }
 			}
 			dateRaspuns.clear();
 			clickButton(refreshButton);
 		}
 	}
 
-	public void waitForActivateNGBCircuitStatusIl(WorkflowClient wfc, String table1IlXpath, String wfcLink,
-			String productId, String searchButton, String wfcFirstNotifyStatus, String wfcSecondNotifyStatus,
-			String tableFromWfc) throws InterruptedException, FileNotFoundException, IOException {
+	public void waitForActivateNGBCircuitStatusIl(WorkflowClient wfc, String tableFromOrder, String productId,
+			String tableFromWfc, String wfcFirstNotifyStatus, String wfcSecondNotifyStatus)
+			throws InterruptedException, FileNotFoundException, IOException {
 
 		while (true) {
-			takeListFromOrderIL(table1IlXpath);
+			takeListFromOrderIL(tableFromOrder);
 			for (OrderResponse rsp : raspuns) {
 				if (rsp.getName().equals("Activate NGB Circuit")) {
 					if (rsp.getStatus().equals("Failed")) {
-						wfc.wfcActions(wfcLink, productId, searchButton, tableFromWfc, wfcFirstNotifyStatus,
-								wfcSecondNotifyStatus);
+						wfc.wfcActions(productId, tableFromWfc, wfcFirstNotifyStatus, wfcSecondNotifyStatus);
 						return;
 					} else if (rsp.getStatus().equals("Completed")) {
 						return;
@@ -323,13 +303,12 @@ public class SeleniumActions {
 		}
 	}
 
-	public void waitForCompletedOrderStatus(String status, String extServiceId, String table2IlXpath)
+	public void waitForCompletedOrderStatus(String status, String extServiceId, String tableWithOrders)
 			throws InterruptedException {
 
 		while (true) {
-			getStatusOrderInstantLink(table2IlXpath);
+			getStatusOrderInstantLink(tableWithOrders);
 			for (SearchOrder so : dateRaspuns) {
-				// try {
 				if (so.getExtServiceId().equals(extServiceId)) {
 					if (so.getTargetPortId().equals("")) {
 						if (so.getOrderStatus().equals(status)) {
@@ -338,28 +317,21 @@ public class SeleniumActions {
 						}
 					}
 				}
-				// } catch (Exception e) {
-				// Thread.sleep(5000);
-				// }
 			}
+			dateRaspuns.clear();
 			driver.navigate().refresh();
-			// clearAndRetry(searchButton);
 		}
 	}
 
-	public void waitForActivities(String activity, String table2IlXpath, String searchButton)
+	public void waitForActivities(String activity, String tableWithOrders, String searchButton)
 			throws InterruptedException {
 
 		while (true) {
-			getStatusOrderInstantLink(table2IlXpath);
+			getStatusOrderInstantLink(tableWithOrders);
 			for (SearchOrder so : dateRaspuns) {
-				// try {
 				if (so.getActivities().equals(activity)) {
 					return;
 				}
-				// } catch (Exception e) {
-				// Thread.sleep(5000);
-				// }
 			}
 			clearAndRetry(searchButton);
 		}
@@ -398,10 +370,10 @@ public class SeleniumActions {
 		openpage(sb.toString());
 	}
 
-	public void enterIlCSOMOrder(String extServiceId, String table1IlXpath, String searchButton)
+	public void enterIlCSOMOrder(String extServiceId, String tableFromOrder, String searchButton)
 			throws FileNotFoundException, IOException, InterruptedException {
 
-		String orderId = waitForCSOMOrderStatus(extServiceId, table1IlXpath, searchButton);
+		String orderId = waitForCSOMOrderStatus(extServiceId, tableFromOrder, searchButton);
 		StringBuilder sb = new StringBuilder();
 		sb.append(
 				"http://cfiwn02-app2.nz.alcatel-lucent.com:44080/sas5/order_management_servlet/showOrderDetails?baseline=false&showDetails=DEFAULT&requestId=")
@@ -409,11 +381,11 @@ public class SeleniumActions {
 		openpage(sb.toString());
 	}
 
-	public String waitForCSOMOrderStatus(String activity, String table2IlXpath, String searchButton)
+	public String waitForCSOMOrderStatus(String activity, String tableWithOrders, String searchButton)
 			throws InterruptedException {
 
 		while (true) {
-			getStatusOrderInstantLink(table2IlXpath);
+			getStatusOrderInstantLink(tableWithOrders);
 			for (SearchOrder so : dateRaspuns) {
 				if (so.getExtServiceId().equals(activity)) {
 					if (!so.getTargetPortId().equals("")) {
@@ -455,12 +427,11 @@ public class SeleniumActions {
 		waitForAlert();
 	}
 
-	public void getStatusOrderInstantLink(String table2IlXpath) {
+	public void getStatusOrderInstantLink(String tableWithOrders) {
 
-		WebElement tabel1 = findElement(table2IlXpath);
+		WebElement tabel1 = findElement(tableWithOrders);
 		List<WebElement> rand = tabel1.findElements(By.tagName("tr"));
 		int dimensiuneRand = rand.size();
-		// System.out.println("randuri: "+dimensiuneRand);
 
 		for (int i = 0; i < dimensiuneRand; i++) {
 			SearchOrder searchOrder = new SearchOrder();
@@ -472,8 +443,6 @@ public class SeleniumActions {
 			for (int j = 0; j < dimensiuneColoana; j++) {
 				String celltext = coloana.get(j).getText();
 				searchOrder.add(j, celltext);
-				// System.out.println("Cell Value Of row number "+i+" and column
-				// number "+j+" Is "+celltext);
 			}
 			if (dimensiuneColoana != 0) {
 				dateRaspuns.add(searchOrder);

@@ -15,9 +15,9 @@ public class InstantLink  extends SeleniumActions {
 	private String clearButton = "btnclearSearchForm";
 	private String orderNoXpath = "txtorderNo";
 	private String searchOrderButton = "//*[@id=\"OrdersForm\"]/div/table/tbody/tr[2]/td/table/tbody/tr/td/button[1]";
-	private String table1IlXpath = "//*[@id=\"content\"]/form/table[2]";
-	private String table2IlXpath = "//*[@id=\"OrdersForm\"]/table";
-	private String activity = "3/3";
+	private String tableFromOrder = "//*[@id=\"content\"]/form/table[2]";
+	private String tableWithOrders = "//*[@id=\"OrdersForm\"]/table";
+//	private String activity = "3/3";
 //	private String refreshButton = "//*[@id=\"content\"]/form/div[2]/div/button[3]";
 	private String refreshButton = "//*[@id=\"OrdersForm\"]/div/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button[1]";
 	private String orderStatus = "Wait for Orchestration Signal";
@@ -57,7 +57,7 @@ public class InstantLink  extends SeleniumActions {
 		sendKey(orderNoXpath, orderNo);
 		clickButton(searchOrderButton);
 //		waitForActivities(activity, table2IlXpath, searchOrderButton); // delete 
-		enterIlCSOMOrder(extServiceId, table2IlXpath, searchOrderButton);
+		enterIlCSOMOrder(extServiceId, tableWithOrders, searchOrderButton);
 	//	waitForActivateNGBCircuitStatusIl(wfc, table1IlXpath);
 		
 	}
@@ -76,11 +76,11 @@ public class InstantLink  extends SeleniumActions {
 		clickButton(searchOrderButton);
 //		waitForActivities(activity, table2IlXpath, searchOrderButton);// comment it
 		enterIlOrder();
-		waitForStatusIl(orderStatus, table1IlXpath, refreshButton);
+		waitForStatusIl(orderStatus, tableFromOrder, refreshButton);
 		xml.sendSOAPXml(SOAPUrl ,xmlFile2Send, true);
 //		exitOrder(goBackToWorkItemsButton);
 		openpage(goBackToWorkItemsButton);
-		waitForCompletedOrderStatus(completedStatus, extServiceId, table2IlXpath);
+		waitForCompletedOrderStatus(completedStatus, extServiceId, tableWithOrders);
 		
 	}
 
@@ -96,7 +96,7 @@ public class InstantLink  extends SeleniumActions {
 		clickButton(clearButton);
 		sendKey(orderNoXpath, orderNo);
 		clickButton(searchOrderButton);
-		enterIlCSOMOrder(extServiceId, table2IlXpath, searchOrderButton);
+		enterIlCSOMOrder(extServiceId, tableWithOrders, searchOrderButton);
 	//	waitForActivateNGBCircuitStatusIl(wfc, table1IlXpath);
 	}
 
