@@ -106,9 +106,6 @@ public class SeleniumActions {
 			}
 		} else if (wfcFrames.size() != 0) {
 			for (WebElement iframe : wfcFrames) {
-				// List<WebElement> frame =
-				// driver.findElements(By.tagName("frame"));
-				// for (WebElement frames : frame) {
 				driver.switchTo().frame(iframe);
 				try {
 					el = driver.findElement(By.id(findElement));
@@ -151,7 +148,6 @@ public class SeleniumActions {
 					System.out.println(e);
 				}
 				driver.switchTo().defaultContent();
-				// }
 			}
 		} else {
 			try {
@@ -200,7 +196,6 @@ public class SeleniumActions {
 
 	public void takeListFromOrderIL(String tableFromOrder) {
 
-//		WebElement myTable = driver.findElement(By.xpath("//*[@id=\"content\"]/form/table[2]"));
 		WebElement fromOrderTable = findElement(tableFromOrder);
 		List<WebElement> rows_table = fromOrderTable.findElements(By.tagName("tr"));
 		int rows_count = rows_table.size();
@@ -210,8 +205,7 @@ public class SeleniumActions {
 			List<WebElement> Columns_row = rows_table.get(row).findElements(By.tagName("td"));
 			// To calculate no of columns(cells) In that specific row.
 			int columns_count = Columns_row.size();
-			// System.out.println("Number of cells In Row "+row+" are
-			// "+columns_count);
+
 			if (columns_count == 0 || Columns_row.get(0).getText().isEmpty()) {
 				continue;
 			}
@@ -221,9 +215,6 @@ public class SeleniumActions {
 				// To retrieve text from that specific cell.
 				String celtext = Columns_row.get(column).getText();
 				or.add(column, celtext);
-//				System.out.println(or.toString());
-				// System.out.println("Cell Value Of row number "+row+" and
-				// column number "+column+" Is "+celtext);
 			}
 			if (columns_count != 0) {
 				raspuns.add(or);
@@ -238,7 +229,6 @@ public class SeleniumActions {
 		List<WebElement> rand = tabel1.findElements(By.tagName("tr"));
 
 		int dimensiuneRand = rand.size();
-		// System.out.println("randuri: " + dimensiuneRand);
 
 		for (int i = 0; i < dimensiuneRand; i++) {
 
@@ -253,8 +243,6 @@ public class SeleniumActions {
 			for (int j = 0; j < dimensiuneColoana; j++) {
 				String celltext = coloana.get(j).getText();
 				wfc.add(i, j, celltext);
-				// System.out.println("Cell Value Of row number " + i + " and
-				// column number " + j + " Is " + celltext);
 			}
 			workflow.add(wfc);
 		}
@@ -321,7 +309,6 @@ public class SeleniumActions {
 		while (true) {
 			getStatusOrderInstantLink(tableWithOrders);
 			for (SearchOrder so : dateRaspuns) {
-				// try {
 				if (so.getExtServiceId().equals(extServiceId)) {
 					if (so.getTargetPortId().equals("")) {
 						if (so.getOrderStatus().equals(status)) {
@@ -342,13 +329,9 @@ public class SeleniumActions {
 		while (true) {
 			getStatusOrderInstantLink(tableWithOrders);
 			for (SearchOrder so : dateRaspuns) {
-				// try {
 				if (so.getActivities().equals(activity)) {
 					return;
 				}
-				// } catch (Exception e) {
-				// Thread.sleep(5000);
-				// }
 			}
 			clearAndRetry(searchButton);
 		}
@@ -449,7 +432,6 @@ public class SeleniumActions {
 		WebElement tabel1 = findElement(tableWithOrders);
 		List<WebElement> rand = tabel1.findElements(By.tagName("tr"));
 		int dimensiuneRand = rand.size();
-		// System.out.println("randuri: "+dimensiuneRand);
 
 		for (int i = 0; i < dimensiuneRand; i++) {
 			SearchOrder searchOrder = new SearchOrder();
@@ -461,8 +443,6 @@ public class SeleniumActions {
 			for (int j = 0; j < dimensiuneColoana; j++) {
 				String celltext = coloana.get(j).getText();
 				searchOrder.add(j, celltext);
-				// System.out.println("Cell Value Of row number "+i+" and column
-				// number "+j+" Is "+celltext);
 			}
 			if (dimensiuneColoana != 0) {
 				dateRaspuns.add(searchOrder);
