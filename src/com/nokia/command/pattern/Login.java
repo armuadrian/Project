@@ -22,7 +22,7 @@ public class Login extends GenericAction{
 	
 	public void extractAndValidate(){
 		if(params.size()!=4){
-			//TODO logs
+			log.error("parameters doesn't look good!", new Exception("parameters wrong!"));
 		}
 	}
 

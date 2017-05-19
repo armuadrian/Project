@@ -25,7 +25,7 @@ public class WaitForActivateNGBCircuitStatusIL extends GenericAction {
 
 	public void extractAndValidate() {
 		if (params.size() != 5) {
-			// TODO logs
+			log.error("WaitForActivateNGBCircuitStatusIl have 5 parameters!", new Exception("parameters introduced wrong!"));
 		}
 	}
 }

@@ -21,7 +21,7 @@ public class WaitForStatusWFC extends GenericAction{
 	
 	public void extractAndValidate(){
 		if(params.size()!=3){
-			//TODO logs
+			log.error("WaitForStatusWFC have 3 parameters!", new Exception("parameters introduced wrong!"));
 		}
 	}
 	

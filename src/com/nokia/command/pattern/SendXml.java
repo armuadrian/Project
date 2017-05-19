@@ -28,7 +28,7 @@ public class SendXml extends GenericAction{
 	
 	public void extractAndValidate(){
 		if(params.size()!=2){
-			//TODO logs
+			log.error("SendXml have 2 parameters!", new Exception("parameters introduced wrong!"));
 		}
 	}
 	

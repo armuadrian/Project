@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class WorkflowClient extends SeleniumActions {
 	
-	private String wfcLink = "http://cfiwn02-app2.nz.alcatel-lucent.com:44380/wfc_ui";
+	private String wfcLink = "http://ec2-52-65-62-217.ap-southeast-2.compute.amazonaws.com:44380/wfc_ui";
 	private String logInButton = "//*[@id=\"login-table-background\"]/table[2]/tbody/tr/td/button[1]";
 	private String enterUsername = "j_username";
 	private String enterPassword = "j_password";

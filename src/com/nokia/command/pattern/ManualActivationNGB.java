@@ -21,7 +21,7 @@ public class ManualActivationNGB extends GenericAction{
 	
 	public void extractAndValidate(){
 		if(params.size()!=0){
-			//TODO logs
+			log.error("ManualActivationNGB have 0 parameters!", new Exception("parameters introduced wrong!"));
 		}
 	}
 }

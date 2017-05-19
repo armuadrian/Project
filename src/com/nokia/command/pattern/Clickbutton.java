@@ -21,7 +21,7 @@ public class Clickbutton extends GenericAction {
 	@Override
 	protected void extractAndValidate() {
 		if(params.size() != 1){
-			//TODO logs
+			log.error("Clickbutton have 1 parameters!", new Exception("parameters introduced wrong!"));
 		}
 	}
 	

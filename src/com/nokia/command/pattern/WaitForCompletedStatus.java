@@ -21,8 +21,7 @@ public class WaitForCompletedStatus extends GenericAction{
 
 	public void extractAndValidate(){
 		if(params.size()!=3){
-			//TODO logs
-		}
+			log.error("WaitForCompletedStatus have 3 parameters!", new Exception("parameters introduced wrong!"));		}
 	}
 	
 	

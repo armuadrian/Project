@@ -20,7 +20,7 @@ public class EnterWFCOrder extends GenericAction{
 	
 	public void extractAndValidate(){
 		if(params.size()!=0){
-			//TODO logs
+			log.error("EnterWFCOrder have 0 parameters!", new Exception("parameters introduced wrong!"));
 		}
 	}
 }
