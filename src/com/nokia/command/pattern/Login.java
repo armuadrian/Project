@@ -11,6 +11,7 @@ public class Login extends GenericAction{
 	public Login(List<String> params) throws FileNotFoundException, IOException{
 		super();
 		this.params=params;
+		super.subject.attach(this);
 	}
 
 	@Override
@@ -22,8 +23,13 @@ public class Login extends GenericAction{
 	
 	public void extractAndValidate(){
 		if(params.size()!=4){
+			super.subject.setState("Failed!");
 			log.error("parameters doesn't look good!", new Exception("parameters wrong!"));
 		}
 	}
 
+	@Override
+	public void update() {
+		log.info("The object "+super.subject.getState().getClass());
+	}
 }

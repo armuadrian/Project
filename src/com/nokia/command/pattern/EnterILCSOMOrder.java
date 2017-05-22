@@ -10,10 +10,9 @@ public class EnterILCSOMOrder extends GenericAction{
 	private List<String> params;
 	
 	public EnterILCSOMOrder(List<String> params) throws FileNotFoundException, IOException {
-
 		super();
-		
 		this.params=params;
+		super.subject.attach(this);
 	}
 	@Override
 	public void execute() throws FileNotFoundException, IOException, InterruptedException {
@@ -23,10 +22,12 @@ public class EnterILCSOMOrder extends GenericAction{
 	@Override
 	protected void extractAndValidate() {
 		if(params.size()!=3){
+			super.subject.setState("Failed!");
 			log.error("EnterILCSOMOrder have 0 parameters!", new Exception("parameters introduced wrong!"));
 		}
 	}
-	
-	
-
+	@Override
+	public void update() {
+		log.info("The object "+super.subject.getState().getClass());
+	}
 }

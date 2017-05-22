@@ -11,6 +11,7 @@ public class WaitForStatusIL extends GenericAction{
 	public WaitForStatusIL(List<String> params) throws FileNotFoundException, IOException {
 		super();
 		this.params=params;
+		super.subject.attach(this);
 	}
 	@Override
 	public void execute() throws FileNotFoundException, IOException, InterruptedException {
@@ -20,7 +21,12 @@ public class WaitForStatusIL extends GenericAction{
 	
 	public void extractAndValidate(){
 		if(params.size()!=3){
+			super.subject.setState("Failed!");
 			log.error("WaitForStatusIL have 3 parameters!", new Exception("parameters introduced wrong!"));
 		}
+	}
+	@Override
+	public void update() {
+		log.info("The object "+super.subject.getState().getClass());
 	}
 }

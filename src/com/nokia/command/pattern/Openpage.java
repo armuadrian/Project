@@ -11,6 +11,7 @@ public class Openpage extends GenericAction{
 	public Openpage(List<String> params) throws FileNotFoundException, IOException{
 		super();
 		this.params= params;
+		super.subject.attach(this);
 	}
 	
 	public void execute() throws FileNotFoundException, IOException{
@@ -20,7 +21,13 @@ public class Openpage extends GenericAction{
 	
 	public void extractAndValidate(){
 		if(params.size()!=1){
+			super.subject.setState("Failed!");
 			log.error("Openpage have 0 parameters!", new Exception("parameters introduced wrong!"));
 		}
+	}
+
+	@Override
+	public void update() {
+		log.info("The object "+super.subject.getState().getClass());	
 	}
 }
