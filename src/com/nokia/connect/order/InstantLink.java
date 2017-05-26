@@ -13,7 +13,7 @@ public class InstantLink  extends SeleniumActions {
 	private String enterPassword = "password";
 	private String logInButton = "btnauthenticate";
 	private String clearButton = "btnclearSearchForm";
-	private String orderNoXpath = "txtorderNo";
+	private String orderNoId = "txtorderNo";
 	private String searchOrderButton = "//*[@id=\"OrdersForm\"]/div/table/tbody/tr[2]/td/table/tbody/tr/td/button[1]";
 	private String tableFromOrder = "//*[@id=\"content\"]/form/table[2]";
 	private String tableWithOrders = "//*[@id=\"OrdersForm\"]/table";
@@ -41,7 +41,6 @@ public class InstantLink  extends SeleniumActions {
 		super();
 		props = new Properties();
 		props.load(new FileInputStream("files/config.properties"));
-		// TODO Auto-generated constructor stub
 	}
 
 
@@ -54,7 +53,7 @@ public class InstantLink  extends SeleniumActions {
 		clickButton(logInButton);
 		openpage(omIlLink);
 		clickButton(clearButton);
-		sendKey(orderNoXpath, orderNo);
+		sendKey(orderNoId, orderNo);
 		clickButton(searchOrderButton);
 //		waitForActivities(activity, table2IlXpath, searchOrderButton); // delete 
 		enterIlCSOMOrder(extServiceId, tableWithOrders, searchOrderButton);
@@ -72,7 +71,7 @@ public class InstantLink  extends SeleniumActions {
 //		clickButton(logInButton);// comment it 
 		openpage(omIlLink);
 		clickButton(clearButton);
-		sendKey(orderNoXpath, orderNo);
+		sendKey(orderNoId, orderNo);
 		clickButton(searchOrderButton);
 //		waitForActivities(activity, table2IlXpath, searchOrderButton);// comment it
 		enterIlOrder();
@@ -94,7 +93,7 @@ public class InstantLink  extends SeleniumActions {
 		clickButton(logInButton);
 		openpage(omIlLink);
 		clickButton(clearButton);
-		sendKey(orderNoXpath, orderNo);
+		sendKey(orderNoId, orderNo);
 		clickButton(searchOrderButton);
 		enterIlCSOMOrder(extServiceId, tableWithOrders, searchOrderButton);
 	//	waitForActivateNGBCircuitStatusIl(wfc, table1IlXpath);

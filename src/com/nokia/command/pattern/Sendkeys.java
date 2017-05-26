@@ -23,7 +23,7 @@ public class Sendkeys extends GenericAction{
 	public void extractAndValidate(){
 		if(params.size()!=2){
 			super.subject.setState("Failed!");
-			log.error("Sendkeys have 0 parameters!", new Exception("parameters introduced wrong!"));
+			log.error("Sendkeys have 2 parameters!", new Exception("parameters introduced wrong!"));
 		}
 	}
 

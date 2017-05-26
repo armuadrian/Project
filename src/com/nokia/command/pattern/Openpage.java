@@ -22,7 +22,7 @@ public class Openpage extends GenericAction{
 	public void extractAndValidate(){
 		if(params.size()!=1){
 			super.subject.setState("Failed!");
-			log.error("Openpage have 0 parameters!", new Exception("parameters introduced wrong!"));
+			log.error("Openpage have 1 parameters!", new Exception("parameters introduced wrong!"));
 		}
 	}
 

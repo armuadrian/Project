@@ -22,7 +22,7 @@ public class SendManualActivation extends GenericAction{
 	}
 	
 	public void extractAndValidate(){
-		if(params.size()!=3){
+		if(params.size()!=0){
 			super.subject.setState("Failed!");
 			log.error("SendManualActivation have 0 parameters!", new Exception("parameters introduced wrong!"));
 		}

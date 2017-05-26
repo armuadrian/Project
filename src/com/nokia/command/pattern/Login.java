@@ -24,7 +24,7 @@ public class Login extends GenericAction{
 	public void extractAndValidate(){
 		if(params.size()!=4){
 			super.subject.setState("Failed!");
-			log.error("parameters doesn't look good!", new Exception("parameters wrong!"));
+			log.error("Login have 4 parameters!", new Exception("parameters wrong!"));
 		}
 	}
 

@@ -23,7 +23,7 @@ public class EnterILCSOMOrder extends GenericAction{
 	protected void extractAndValidate() {
 		if(params.size()!=3){
 			super.subject.setState("Failed!");
-			log.error("EnterILCSOMOrder have 0 parameters!", new Exception("parameters introduced wrong!"));
+			log.error("EnterILCSOMOrder have 3 parameters!", new Exception("parameters introduced wrong!"));
 		}
 	}
 	@Override

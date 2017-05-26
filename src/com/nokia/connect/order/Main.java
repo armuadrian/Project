@@ -14,12 +14,12 @@ public class Main {
 			NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException, ClassNotFoundException {
 
-		String xmlFile2Send = "C:\\Users\\opis\\Documents\\devTestXml.xml";
-		String SOAPUrl = "http://cfiwn02-app2.nz.alcatel-lucent.com:44006/ilws/InstantLinkSOA?wsdl";
+//		String xmlFile2Send = "C:\\Users\\opis\\Documents\\devTestXml.xml";
+//		String SOAPUrl = "http://cfiwn02-app2.nz.alcatel-lucent.com:44006/ilws/InstantLinkSOA?wsdl";
 
 		ExecuteAction exAct = new ExecuteAction();
-		InstantLink il = new InstantLink();
-		WorkflowClient wfc = new WorkflowClient();
+//		InstantLink il = new InstantLink();
+//		WorkflowClient wfc = new WorkflowClient();
 
 		// Xml.sendSOAPXml(SOAPUrl, xmlFile2Send, true);
 
