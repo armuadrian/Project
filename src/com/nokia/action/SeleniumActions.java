@@ -63,7 +63,7 @@ public class SeleniumActions {
 
 		if (iframes.size() != 0) {
 			for (WebElement iframe : iframes) {
-				iframe.getSize();
+				iframe.getTagName();
 				List<WebElement> frame = driver.findElements(By.tagName("frame"));
 				for (WebElement frames : frame) {
 					driver.switchTo().frame(frames);
