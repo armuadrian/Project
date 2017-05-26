@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import com.nokia.action.SeleniumActions;
+
 public class InstantLink  extends SeleniumActions {
 	
 	private String ilLink = "http://cfiwn02-app2.nz.alcatel-lucent.com:44080/sas5/";

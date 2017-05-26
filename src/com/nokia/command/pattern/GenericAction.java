@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nokia.connect.order.SeleniumActions;
+import com.nokia.action.SeleniumActions;
 import com.nokia.observer.pattern.Observer;
 import com.nokia.observer.pattern.Subject;
 

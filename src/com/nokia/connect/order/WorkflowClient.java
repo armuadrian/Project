@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import com.nokia.action.SeleniumActions;
+
 public class WorkflowClient extends SeleniumActions {
 	
 	private String wfcLink = "http://ec2-52-65-62-217.ap-southeast-2.compute.amazonaws.com:44380/wfc_ui";

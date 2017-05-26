@@ -1,4 +1,4 @@
-package com.nokia.connect.order;
+package com.nokia.action;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,6 +11,12 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import com.nokia.connect.order.OrderResponse;
+import com.nokia.connect.order.SearchOrder;
+import com.nokia.connect.order.WebDriverChrome;
+import com.nokia.connect.order.WorkflowClient;
+import com.nokia.connect.order.WorkflowObject;
 
 public class SeleniumActions {
 
