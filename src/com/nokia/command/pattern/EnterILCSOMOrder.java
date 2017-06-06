@@ -7,18 +7,12 @@ import java.util.List;
 
 public class EnterILCSOMOrder extends GenericAction{
 	
-/*	private String productId;
-	private String orderTable;
-	private String refreshButton;*/
 	private List<String> params;
 	
 	public EnterILCSOMOrder(List<String> params) throws FileNotFoundException, IOException {
-
 		super();
-		/*this.productId = productId;
-		this.orderTable = orderTable;
-		this.refreshButton = refreshButton;*/
 		this.params=params;
+		super.subject.attach(this);
 	}
 	@Override
 	public void execute() throws FileNotFoundException, IOException, InterruptedException {
@@ -28,10 +22,12 @@ public class EnterILCSOMOrder extends GenericAction{
 	@Override
 	protected void extractAndValidate() {
 		if(params.size()!=3){
-			//TODO logs
+			super.subject.setState("Failed!");
+			log.error("EnterILCSOMOrder have 3 parameters!", new Exception("parameters introduced wrong!"));
 		}
 	}
-	
-	
-
+	@Override
+	public void update() {
+		log.info("The object "+super.subject.getState().getClass());
+	}
 }

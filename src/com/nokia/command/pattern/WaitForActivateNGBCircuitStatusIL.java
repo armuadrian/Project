@@ -14,6 +14,7 @@ public class WaitForActivateNGBCircuitStatusIL extends GenericAction {
 		super();
 		this.wfc = new WorkflowClient();
 		this.params = params;
+		super.subject.attach(this);
 	}
 
 	@Override
@@ -25,7 +26,13 @@ public class WaitForActivateNGBCircuitStatusIL extends GenericAction {
 
 	public void extractAndValidate() {
 		if (params.size() != 5) {
-			// TODO logs
+			super.subject.setState("Failed!");
+			log.error("WaitForActivateNGBCircuitStatusIl have 5 parameters!", new Exception("parameters introduced wrong!"));
 		}
+	}
+
+	@Override
+	public void update() {
+		log.info("The object "+super.subject.getState().getClass());
 	}
 }

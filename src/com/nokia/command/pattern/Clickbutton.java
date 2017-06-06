@@ -11,6 +11,7 @@ public class Clickbutton extends GenericAction {
 	public Clickbutton(List<String> params) throws FileNotFoundException, IOException {
 		super();
 		this.params = params;
+		super.subject.attach(this);
 	}
 	
 	public void execute(){
@@ -21,9 +22,13 @@ public class Clickbutton extends GenericAction {
 	@Override
 	protected void extractAndValidate() {
 		if(params.size() != 1){
-			//TODO logs
+			super.subject.setState("Failed!");
+			log.error("Clickbutton have 1 parameters!", new Exception("parameters introduced wrong!"));
 		}
 	}
-	
-	
+
+	@Override
+	public void update() {
+		log.info("The object "+super.subject.getState().getClass());
+	}	
 }

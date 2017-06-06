@@ -12,6 +12,7 @@ public class EnterILOrder extends GenericAction{
 	public EnterILOrder(List<String> params) throws FileNotFoundException, IOException {
 		super();
 		this.params=params;
+		super.subject.attach(this);
 	}
 	
 	public void execute() throws FileNotFoundException, IOException{
@@ -21,7 +22,13 @@ public class EnterILOrder extends GenericAction{
 	
 	public void extractAndValidate(){
 		if(params.size()!=0){
-			//TODO logs
+			super.subject.setState("Failed!");
+			log.error("EnterILOrder have 0 parameters!", new Exception("parameters introduced wrong!"));
 		}
+	}
+
+	@Override
+	public void update() {
+		log.info("The object "+super.subject.getState().getClass());
 	}
 }

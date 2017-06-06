@@ -10,14 +10,13 @@ import com.nokia.connect.order.Xml;
 public class SendXml extends GenericAction{
 
 	private Xml xml;
-/*	private String soapUrl;
-	private String xmlFile2Send;
-	private boolean verifyProxy = false;*/
 	private List<String> params;
 	
 	public SendXml(List<String> params) throws FileNotFoundException, IOException {
+		super();
 		this.xml = new Xml();
 		this.params=params;
+		super.subject.attach(this);
 	}
 	
 	@Override
@@ -28,8 +27,13 @@ public class SendXml extends GenericAction{
 	
 	public void extractAndValidate(){
 		if(params.size()!=2){
-			//TODO logs
+			super.subject.setState("Failed!");
+			log.error("SendXml have 2 parameters!", new Exception("parameters introduced wrong!"));
 		}
 	}
-	
+
+	@Override
+	public void update() {
+		log.info("The object "+super.subject.getState().getClass());
+	}	
 }

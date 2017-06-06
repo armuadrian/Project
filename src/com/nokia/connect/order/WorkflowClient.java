@@ -5,9 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import com.nokia.action.SeleniumActions;
+
 public class WorkflowClient extends SeleniumActions {
 	
-	private String wfcLink = "http://cfiwn02-app2.nz.alcatel-lucent.com:44380/wfc_ui";
+	private String wfcLink = "http://ec2-52-65-62-217.ap-southeast-2.compute.amazonaws.com:44380/wfc_ui";
 	private String logInButton = "//*[@id=\"login-table-background\"]/table[2]/tbody/tr/td/button[1]";
 	private String enterUsername = "j_username";
 	private String enterPassword = "j_password";
@@ -26,18 +28,11 @@ public class WorkflowClient extends SeleniumActions {
 		super();
 		props = new Properties();
 		props.load(new FileInputStream("files/config.properties"));
-		// TODO Auto-generated constructor stub
 	}
 
 	public void wfcActions(String productId2, String tableFromWfc,
 			String wfcFirstNotifyStatus, String wfcSecondNotifyStatus)
 			throws InterruptedException, FileNotFoundException, IOException {
-
-//		String productId = props.getProperty("productId");
-
-		// String driverPath = props.getProperty("driverPath");
-
-		// openWeb(driverPath);
 
 		openpage(wfcLink);
 		login(enterUsername, user, enterPassword, pass);

@@ -1,4 +1,4 @@
-package com.nokia.connect.order;
+package com.nokia.action;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,6 +11,12 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import com.nokia.connect.order.OrderResponse;
+import com.nokia.connect.order.SearchOrder;
+import com.nokia.connect.order.WebDriverChrome;
+import com.nokia.connect.order.WorkflowClient;
+import com.nokia.connect.order.WorkflowObject;
 
 public class SeleniumActions {
 
@@ -57,7 +63,7 @@ public class SeleniumActions {
 
 		if (iframes.size() != 0) {
 			for (WebElement iframe : iframes) {
-				iframe.getSize();
+				iframe.getTagName();
 				List<WebElement> frame = driver.findElements(By.tagName("frame"));
 				for (WebElement frames : frame) {
 					driver.switchTo().frame(frames);
@@ -199,7 +205,7 @@ public class SeleniumActions {
 		WebElement fromOrderTable = findElement(tableFromOrder);
 		List<WebElement> rows_table = fromOrderTable.findElements(By.tagName("tr"));
 		int rows_count = rows_table.size();
-		System.out.println("rows-count: " + rows_count);
+
 		for (int row = 0; row < rows_count; row++) {
 			OrderResponse or = new OrderResponse();
 			List<WebElement> Columns_row = rows_table.get(row).findElements(By.tagName("td"));
@@ -268,30 +274,30 @@ public class SeleniumActions {
 		}
 	}
 
-	public void waitForStatusIl(String status, String tableFromOrder, String refreshButton) throws InterruptedException {
+	public void waitForStatusIl(String status, String tableFromOrderIL, String refreshButton) throws InterruptedException {
 
 		while (true) {
-			takeListFromOrderIL(tableFromOrder);
+			takeListFromOrderIL(tableFromOrderIL);
 			for (OrderResponse rsp : raspuns) {
 				if (rsp.getName().endsWith(status)) {
 					return;
 				}
 			}
-			dateRaspuns.clear();
+			raspuns.clear();
 			clickButton(refreshButton);
 		}
 	}
 
-	public void waitForActivateNGBCircuitStatusIl(WorkflowClient wfc, String tableFromOrder, String productId,
-			String tableFromWfc, String wfcFirstNotifyStatus, String wfcSecondNotifyStatus)
+	public void waitForActivateNGBCircuitStatusIl(WorkflowClient wfc, String tableFromOrderIL, String productId,
+			String tableWithOrdersFromWfc, String wfcFirstNotifyStatus, String wfcSecondNotifyStatus)
 			throws InterruptedException, FileNotFoundException, IOException {
 
 		while (true) {
-			takeListFromOrderIL(tableFromOrder);
+			takeListFromOrderIL(tableFromOrderIL);
 			for (OrderResponse rsp : raspuns) {
 				if (rsp.getName().equals("Activate NGB Circuit")) {
 					if (rsp.getStatus().equals("Failed")) {
-						wfc.wfcActions(productId, tableFromWfc, wfcFirstNotifyStatus, wfcSecondNotifyStatus);
+						wfc.wfcActions(productId, tableWithOrdersFromWfc, wfcFirstNotifyStatus, wfcSecondNotifyStatus);
 						return;
 					} else if (rsp.getStatus().equals("Completed")) {
 						return;
@@ -370,10 +376,10 @@ public class SeleniumActions {
 		openpage(sb.toString());
 	}
 
-	public void enterIlCSOMOrder(String extServiceId, String tableFromOrder, String searchButton)
+	public void enterIlCSOMOrder(String extServiceId, String tableFromOrderIL, String searchButton)
 			throws FileNotFoundException, IOException, InterruptedException {
 
-		String orderId = waitForCSOMOrderStatus(extServiceId, tableFromOrder, searchButton);
+		String orderId = waitForCSOMOrderStatus(extServiceId, tableFromOrderIL, searchButton);
 		StringBuilder sb = new StringBuilder();
 		sb.append(
 				"http://cfiwn02-app2.nz.alcatel-lucent.com:44080/sas5/order_management_servlet/showOrderDetails?baseline=false&showDetails=DEFAULT&requestId=")
@@ -381,11 +387,11 @@ public class SeleniumActions {
 		openpage(sb.toString());
 	}
 
-	public String waitForCSOMOrderStatus(String activity, String tableWithOrders, String searchButton)
+	public String waitForCSOMOrderStatus(String activity, String tableWithOrdersFromIL, String searchButton)
 			throws InterruptedException {
 
 		while (true) {
-			getStatusOrderInstantLink(tableWithOrders);
+			getStatusOrderInstantLink(tableWithOrdersFromIL);
 			for (SearchOrder so : dateRaspuns) {
 				if (so.getExtServiceId().equals(activity)) {
 					if (!so.getTargetPortId().equals("")) {
@@ -407,8 +413,8 @@ public class SeleniumActions {
 		driver.switchTo().defaultContent();
 	}
 
-	public void sendKey(String el, String keyToSend) {
-		findElement(el).sendKeys(keyToSend);
+	public void sendKey(String element, String keyToSend) {
+		findElement(element).sendKeys(keyToSend);
 		driver.switchTo().defaultContent();
 	}
 
